@@ -31,6 +31,8 @@ jobs:
         ignore: "E203"
         max-line-length: "88" # For compatibility with Black
         path: "."
+    - name: Type checking with mypy
+      uses: jpetrucciani/mypy-check@master
     - name: Test with pytest
       run: |
         pip install pytest

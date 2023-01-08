@@ -37,8 +37,8 @@ setup(
     zip_safe=False,
     install_requires=["marisa-trie", "numpy", "matplotlib", "scikit-image"],
     extras_require={
-        "dev": ["flake8", "black", "check-manifest", "pytest", "pytest-cov"],
-        "test": ["flake8", "black", "pytest", "pytest-cov"],
+        "dev": ["flake8", "black", "mypy", "check-manifest", "pytest", "pytest-cov"],
+        "test": ["flake8", "black", "mypy", "pytest", "pytest-cov"],
     },
     entry_points={
         "console_scripts": [
