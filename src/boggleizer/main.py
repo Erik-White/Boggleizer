@@ -1,4 +1,4 @@
-from boggleizer.solve import solve
+from .solve import solve
 
 dictionary_path = "csw19.txt"
 grid_size = 4  # Assume rows and columns are equal
