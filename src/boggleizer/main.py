@@ -15,7 +15,7 @@ def word_is_applicable(alphabet: str, min_characters: int, word: str) -> bool:
     """
     Check if a word is long enough and can fit in to the available letters
     """
-    if (word is None or word is not str):
+    if word is None or word is not str:
         return False
 
     length_is_correct = len(alphabet) >= len(word) > min_characters
