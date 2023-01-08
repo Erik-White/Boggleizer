@@ -1,4 +1,4 @@
-from solve import solve
+from boggleizer.solve import solve
 
 dictionary_path = "csw19.txt"
 grid_size = 4  # Assume rows and columns are equal
@@ -11,11 +11,14 @@ scores = [0, 0, 0, 1, 1, 2, 3, 5, 11]
 letters = "abcdefghijklmnop".upper()
 
 
-def word_is_applicable(alphabet: str, word: str) -> bool:
+def word_is_applicable(alphabet: str, min_characters: int, word: str) -> bool:
     """
     Check if a word is long enough and can fit in to the available letters
     """
-    length_is_correct = len(alphabet) >= len(word) > word_min_characters
+    if (word is None or word is not str):
+        return False
+
+    length_is_correct = len(alphabet) >= len(word) > min_characters
 
     return length_is_correct and all(letter in set(alphabet) for letter in set(word))
 
@@ -26,7 +29,9 @@ def load_dictionary(dictionary_path: str, alphabet: str) -> tuple[set[str], int]
     """
     dictionary = open(dictionary_path).read().splitlines()
     applicable_subset = set(
-        word for word in dictionary if word_is_applicable(alphabet, word)
+        word
+        for word in dictionary
+        if word_is_applicable(alphabet, word_min_characters, word)
     )
 
     return (applicable_subset, len(dictionary))
