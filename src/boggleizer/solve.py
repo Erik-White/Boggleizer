@@ -1,4 +1,6 @@
+from __future__ import annotations  # Direct use of types is allowed in Python >= 3.9
 from typing import Generator
+
 from marisa_trie import Trie
 
 
