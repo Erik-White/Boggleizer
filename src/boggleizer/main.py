@@ -2,7 +2,7 @@ import re
 from marisa_trie import Trie
 
 dictionary_path = "csw19.txt"
-grid_size = 4 # Assume rows and columns are equal
+grid_size = 4  # Assume rows and columns are equal
 
 # Boggle constants
 word_min_characters = 3
@@ -15,6 +15,8 @@ letters = "abcdefghijklmnop".upper()
 """
 Check if a word is long enough and can fit in to the available letters
 """
+
+
 def word_is_applicable(alphabet: str, word: str) -> bool:
     length_is_correct = len(alphabet) >= len(word) > word_min_characters
 
@@ -24,6 +26,8 @@ def word_is_applicable(alphabet: str, word: str) -> bool:
 """
 Loads the relevant words from a reference dictionary based on available letters
 """
+
+
 def load_dictionary(dictionary_path: str, alphabet: str) -> tuple[str, int]:
     dictionary = open(dictionary_path).read().splitlines()
     words = set(word for word in dictionary if word_is_applicable(alphabet, word))
@@ -34,6 +38,8 @@ def load_dictionary(dictionary_path: str, alphabet: str) -> tuple[str, int]:
 """
 Iterate through all the neighbouring cells
 """
+
+
 def neighbors(grid_size: tuple[int, int], coordinate: tuple) -> tuple[int, int]:
     rows, columns = grid_size
     x, y = coordinate
@@ -46,6 +52,8 @@ def neighbors(grid_size: tuple[int, int], coordinate: tuple) -> tuple[int, int]:
 """
 Recursively visit all neighbouring cells and build up words
 """
+
+
 def iter_cells(dictionary: Trie, grid_size: tuple[int, int], prefix: str, path: tuple):
     if prefix in dictionary:
         yield (prefix, path)
@@ -54,7 +62,9 @@ def iter_cells(dictionary: Trie, grid_size: tuple[int, int], prefix: str, path: 
         if (nx, ny) not in path:
             temp_prefix = prefix + grid[ny][nx]
             if dictionary.keys(temp_prefix):
-                yield from iter_cells(dictionary, grid_size, temp_prefix, path + ((nx, ny), ))
+                yield from iter_cells(
+                    dictionary, grid_size, temp_prefix, path + ((nx, ny),)
+                )
 
 
 """
@@ -68,22 +78,26 @@ Results are generated with row, column coordinates i.e.
 3 M N O P
 y
 """
+
+
 def solve(dictionary: Trie, grid: list[str]) -> list[str]:
     grid_size = (len(grid), len(grid[0]))
     for y, row in enumerate(grid):
         for x, letter in enumerate(row):
-            yield from iter_cells(dictionary, grid_size, letter, ((x, y), ))
+            yield from iter_cells(dictionary, grid_size, letter, ((x, y),))
 
 
 words, dictionary_total = load_dictionary(dictionary_path, letters)
 
-print(f"{len(words)} relevant words ({len(words) / dictionary_total:.1%}) loaded, from a total dictionary of {dictionary_total}")
+print(
+    f"{len(words)} relevant words ({len(words) / dictionary_total:.1%}) loaded, from a total dictionary of {dictionary_total}"
+)
 
 # Generate the board and find solutions
 grid = [letters[i : i + grid_size] for i in range(0, len(letters), grid_size)]
 solutions = list(solve(Trie(words), grid))
 
-for result in sorted(solutions, key = lambda x: x[0]):
+for result in sorted(solutions, key=lambda x: x[0]):
     print(result)
 
 print(f"{len(solutions)} solutions found")
