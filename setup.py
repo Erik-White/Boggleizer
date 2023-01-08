@@ -34,7 +34,7 @@ setup(
     package_dir = {"": "src"},
     zip_safe = False,
     install_requires = [
-        "marisa-trie"
+        "marisa-trie",
         "numpy",
         "matplotlib",
         "scikit-image"
