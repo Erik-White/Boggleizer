@@ -1,0 +1,6 @@
+[flake8]
+# Line length set to the same default as Black
+max-line-length = 88
+extend-ignore =
+    # For compatibility with Black
+    E203
