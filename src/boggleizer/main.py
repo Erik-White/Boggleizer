@@ -39,18 +39,23 @@ def load_dictionary(dictionary_path: str, alphabet: str) -> tuple[set[str], int]
     return (applicable_subset, len(dictionary))
 
 
-dictionary, dictionary_total = load_dictionary(dictionary_path, letters)
+def main():
+    dictionary, dictionary_total = load_dictionary(dictionary_path, letters)
 
-print(
-    f"{len(dictionary)} relevant words ({len(dictionary) / dictionary_total:.1%})"
-    f" loaded,  from a total dictionary of {dictionary_total}"
-)
+    print(
+        f"{len(dictionary)} relevant words ({len(dictionary) / dictionary_total:.1%})"
+        f" loaded,  from a total dictionary of {dictionary_total}"
+    )
 
-# Generate the board and find solutions
-grid = [letters[i : i + grid_size] for i in range(0, len(letters), grid_size)]
-solutions = list(solve(dictionary, grid))
+    # Generate the board and find solutions
+    grid = [letters[i : i + grid_size] for i in range(0, len(letters), grid_size)]
+    solutions = list(solve(dictionary, grid))
 
-for result in sorted(solutions, key=lambda x: x[0]):
-    print(result)
+    for result in sorted(solutions, key=lambda x: x[0]):
+        print(result)
 
-print(f"{len(solutions)} solutions found")
+    print(f"{len(solutions)} solutions found")
+
+
+if __name__ == "__main__":
+    main()
