@@ -5,3 +5,15 @@ requires = ["setuptools", "wheel"]  # PEP 508 specifications
 [tool.mypy]
 mypy_path = "src"
 explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = "setuptools"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "pytest"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "marisa_trie"
+ignore_missing_imports = true
